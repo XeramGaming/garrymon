@@ -35,7 +35,7 @@ util.AddNetworkString( "gmon.ChatMessage" )
 
 util.AddNetworkString( "PlayerInitialSpawn" )
 function GM:PlayerInitialSpawn(pl)
-	if (dx_USE_MYSQL) then
+	if (pkmn_USE_MYSQL) then
 		local steamID = client:SteamID();
 
 		Garrymon.db:Query("SELECT * FROM players WHERE SteamID=\""..steamID.."\"", function(data)

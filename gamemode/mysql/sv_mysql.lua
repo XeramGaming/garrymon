@@ -9,7 +9,7 @@
 	Otherwise your gamemode will not use MySQL correctly.
 --]]
 
-dx_USE_MYSQL = true; -- True/false to set whether MySQL is used.
+pkmn_USE_MYSQL = false; -- True/false to set whether MySQL is used.
 
 local MYSQL_HOSTNAME = "xeramgaming.com"; -- The host of your database.
 local MYSQL_USERNAME = "Username"; -- Which user it will be logged in with.
@@ -25,7 +25,7 @@ Garrymon.db = Garrymon.db or {};
 -- These are assumed tables that are assumed already made.
 -- Used in the persist functions.
 Garrymon.db.tables = {
-  quest = {table = "Quest", data = "number"},
+  quest = {table = "Quest", data = "string"},
 };
 
 function Garrymon.db:Connect()
@@ -49,14 +49,14 @@ function Garrymon.db:Connect()
     MsgC(Color(255, 0, 0), "[Garrymon] Connection failed! "..message.."\n");
     MsgC(Color(255, 0, 0), "[Garrymon] Reverting to file/SQLite storage.\n");
 
-    dx_USE_MYSQL = false;
+    pkmn_USE_MYSQL = false;
   end;
 
   if (database) then
     database:connect();
 
-    timer.Create("dx_SQLHeartBeat", 30, 0, function()
-      if (dx_USE_MYSQL) then
+    timer.Create("pkmn_SQLHeartBeat", 30, 0, function()
+      if (pkmn_USE_MYSQL) then
       Garrymon.db:Query("SELECT 1 + 1");
     end;
   end);
@@ -68,7 +68,7 @@ if (!query) then
   return;
 end;
 
-if (!dx_USE_MYSQL or !self.obj) then
+if (!pkmn_USE_MYSQL or !self.obj) then
   MsgC(Color(255, 255, 0), "[Garrymon MySQL] Warning! A query is being made but no database!\n");
 
   return;
@@ -88,7 +88,7 @@ end;
 query:start();
 end;
 
-if (!dx_USE_MYSQL) then
+if (!pkmn_USE_MYSQL) then
 MsgC(Color(255, 0, 0), "[Garrymon] Not using MySQL, switching to file/SQLite storage.\n");
 
 return;
