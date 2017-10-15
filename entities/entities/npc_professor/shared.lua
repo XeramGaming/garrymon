@@ -1,0 +1,1 @@
+ENT.Base = "npc_base"
