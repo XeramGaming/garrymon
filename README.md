@@ -1,2 +1,3 @@
 # ![Garrymon](logo.png)
-A Pokemon clone in Garrysmod
+
+A whole new experience in the world of Pokemon!
