@@ -2,6 +2,6 @@
 
 A whole new experience in the world of Pokemon!
 
-Latest Updates:
+Changelog 10/19/2017
 
-Battle Menu UI Designed!
+- Battle Menu UI added (Not yet integrated)
