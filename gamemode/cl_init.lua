@@ -4,6 +4,9 @@ include("menus/pokemonstats.lua")
 include("menus/cl_pkmnmenu.lua")
 include("menus/cl_bag.lua")
 include("menus/battlemenu.lua")
+include("menus/newpokedex.lua")
+include("menus/pcui.lua")
+include("menus/shopui.lua")
 
 surface.CreateFont( "GarrymonFont",
 	{
