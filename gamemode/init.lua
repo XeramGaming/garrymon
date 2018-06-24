@@ -321,30 +321,6 @@ end
 end
 end
 
-local function gainFormula( gmon, fainted )
-a = fainted.wild and 1 or 1.5
-b = math.pow( fainted.lvl, 3 )
-e = gmon.holding == "LuckyEgg" and 1.5 or 1
-v = gmon.lvl > gmon.evolves[1] and 1.2 or 1
-L = fainted.lvl
-s = 1
-return math.floor(a * b * e * L * v / (7 * s))
-end
-
-function GM:IncreaseStat( gmon, name, key, amount )
-local oldValue, newValue
-if type(key) == "string" then
-oldValue = gmon[key]
-newValue = oldValue + amount
-else
-oldValue = gmon.stats[key].value
-newValue = oldValue + amount
-gmon.stats[key].value = newValue
-end
-self:ActionMessage( name .. " (" .. oldValue .. "</c><c=0,255,0>+" .. amount ..
-"</c><c=255,0,0>) -> </c><c=255,255,0>" .. newValue .. "</c><c=255,0,0>" )
-end
-
 function GM:Fight(gmon, enemy)
 local whoseTurn = gmon
 while true do

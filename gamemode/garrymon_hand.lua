@@ -30,6 +30,10 @@ function GM:CreateGHand( pl )
 	GHand:Init( pl )
 end
 
+concommand.Add("listhand", function()
+	print( garrymon )
+end)
+
 local META = FindMetaTable("Player")
 if META then
 	AccessorFunc( META, "ghand", "GHand" )
