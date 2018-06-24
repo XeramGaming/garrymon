@@ -10,7 +10,27 @@ function ENT:Initialize()
 	self.controllers = {}
 	self.LoseTargetDist = 2000 -- How far the enemy has to be before we lose them
 	self.SearchRadius = 1000 -- How far to search for enemies
+	self:SetModel( "models/pokemon/"..garrymon.name..".mdl" )
 
+end
+
+function ENT:SetupDataTables()
+
+    self:NetworkVar( "Float", 0, "LVL" )
+	self:NetworkVar( "Float", 0, "HP" )
+	self:NetworkVar( "Float", 0, "DEF" )
+	self:NetworkVar( "Float", 0, "ATK" )
+	self:NetworkVar( "Float", 0, "SPATK" )
+	self:NetworkVar( "Float", 0, "SPDEF" )
+	self:NetworkVar( "Float", 0, "SPD" )
+	self:SetVar( "LVL", math.random( 1, 100 )  )
+	self:SetVar("DEF", self:GetVar("LVL")*garrymon.defencemultiplier)
+	self:SetVar("HP", self:GetVar("LVL")*garrymon.hpmulti)
+	self:SetVar("ATK", self:GetVar("LVL")*garrymon.atkmulti)
+	self:SetVar("SPATK", self:GetVar("LVL")*garrymon.atkmulti)
+	self:SetVar("SPDEF", self:GetVar("LVL")*garrymon.spdefmulti)
+	self:SetVar("SPD", self:GetVar("LVL")*garrymon.spdmulti)
+	 
 end
 
 function ENT:AddController( controller, func )
