@@ -32,9 +32,9 @@ local function StatusItem( name, statusType )
 end
 
 
-local function HeldBattleItem( name, itemBattle )
-   local item = Item( name, ITEM_TYPE_HELDBATTLE )
-   item.itemBattle = itemBattle
+local function HeldItem( name, itemHeld )
+   local item = Item( name, ITEM_TYPE_HELD )
+   item.itemHeld = itemHeld
    return item
 end
 
@@ -45,10 +45,11 @@ local function BerryItem( name, itemBerry, berryType )
    return item
 end
 
-local function BattleItem( name, itemBattle, StatBoost )
-   local item = Item( name, ITEM_TYPE_BATTLE, StatBoost )
+local function BattleItem( name, itemBattle, StatBoost, BoostAmount )
+   local item = Item( name, ITEM_TYPE_BATTLE, StatType, BoostAmount )
    item.itemBattle = itemBattle
-   item.StatBoost = StatBoost
+   item.StatType = StatType
+   item.BoostAmount = BoostAmount
    return item
 end
 
@@ -65,17 +66,17 @@ GM.items = {
     PotionMax = PotionItem( "Max Potion", 100, POTION_TYPE_HEALTH_PERCENT ),
     PotionElixir = PotionItem( "Elixir", 10, POTION_TYPE_GP )
 
-	stathealAntidote = StatusItem( "antidote", STATUS_ANT )
-	stathealParlz = StatusItem( "Paralyze Heal", STATUS_PAR )
-	stathealAwake = StatusItem( "Awakening", STATUS_AWAKE )
+	stathealAntidote = StatusItem( "Antidote", STATUS_ANTIDOTE )
+	stathealParalyze = StatusItem( "Paralyze Heal", STATUS_PARALYZE )
+	stathealAwaken = StatusItem( "Awakening", STATUS_AWAKE )
 	stathealBurn = StatusItem( "Burn Heal", STATUS_BURNHEAL )
 	stathealIce = StatusItem( "Ice Heal", STATUS_ICE )
 
-	itemQuickClaw = BattleItem( "Quick Claw", ITEM_QUICKCLAW )
-	itemFocusSash = BattleItem( "Focus Sash", ITEM_FOCUSSASH )
-	itemFlameOrb = BattleItem( "Flame Orb", ITEM_FLAMEORB )
-	itemRockyHelmet = BattleItem( "Rocky Helmet", ITEM_HELMET )
-	itemSmokeBall = BattleItem( "Smoke Ball", ITEM_SMOKEBALL )
+	itemQuickClaw = HeldItem( "Quick Claw", ITEM_QUICKCLAW )
+	itemFocusSash = HeldItem( "Focus Sash", ITEM_FOCUSSASH )
+	itemFlameOrb = HeldItem( "Flame Orb", ITEM_FLAMEORB )
+	itemRockyHelmet = HeldItem( "Rocky Helmet", ITEM_HELMET )
+	itemSmokeBall = HeldItem( "Smoke Ball", ITEM_SMOKEBALL )
 
 	BerryOran = BerryItem( "Oran Berry", ITEM_ORAN, BERRYTPYE_HEAL )
 	BerryChesto = BerryItem( "Chesto Berry", ITEM_CHESTO, BERRYTYPE_AWAKE )
@@ -83,11 +84,11 @@ GM.items = {
 	BerryCheri = BerryItem( "Cheri Berry", ITEM_CHERI, BERRYTYPE_PARALYZE )
 	BerryPecha = BerryItem( "Pecha Berry", ITEM_PECHA, BERRYTYPE_POISON )
 
-	BattleATK = BattleItem( "X Attack", ITEM_XATK, BATTLE_ATK )
-	BattleDEF = BattleItem( "X Defence", ITEM_XDEF, BATTLE_DEF )
-	BattleSPD = BattleItem( "X Speed", ITEM_XSPD, BATTLE_SPD )
-	BattleSPATK = BattleItem( "X Sp. Attack", ITEM_XSPATK, BATTLE_SPATK )
-	BattleSPDEF = BattleItem( "X Sp. Defence", ITEM_XSPDEF, BATTLE_SPDEF )
+	BattleATK = BattleItem( "X Attack", ITEM_XATK, BATTLE_ATK, 3 )
+	BattleDEF = BattleItem( "X Defence", ITEM_XDEF, BATTLE_DEF, 3 )
+	BattleSPD = BattleItem( "X Speed", ITEM_XSPD, BATTLE_SPD, 3 )
+	BattleSPATK = BattleItem( "X Sp. Attack", ITEM_XSPATK, BATTLE_SPATK, 3 )
+	BattleSPDEF = BattleItem( "X Sp. Defence", ITEM_XSPDEF, BATTLE_SPDEF, 3 )
 }
 for k, v in pairs( GM.items ) do
     v.key = k
