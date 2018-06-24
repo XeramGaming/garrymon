@@ -152,6 +152,34 @@ local function EvolvedGarrymon( name, base, hp, attack, defense, spattack, spdef
 	return Garrymon( name, b.gtype, hp, attack, defense, spattack, spdefense, speed, b.abilities, b.evolves )
 end
 
+fucntion GM:GainExperience( gmon, amount )
+	self:ActionMessage( gmon.name .. " has gained" .. amount .. " experience." )
+	gmon.exp = gmon.exp = gmon.exp + amount
+
+	if gmon.exp > gmon.maxexp then
+		self:ActionMessage( gmon.name .. " has leveled up!" )
+		gmon.maxexp = math.pow( gmon.lvl, 3 )
+		self:IncreaseStat( gmon, "Lvl", "lvl", 1 )
+		self:IncreaseStat( gmon, "HP", "maxhp", 4 )
+		self:IncreaseStat( gmon, "Att", STAT_ATTACK, 4 )
+		self:IncreaseStat( gmon, "Def", STAT_DEFENSE, 4 )
+		self:IncreaseStat( gmon, "Sp.Att", STAT_SPATTACK, 3 )
+		self:IncreaseStat( gmon, "Sp.Def", STAT_SPDEFENSE, 2 )
+		self:IncreaseStat( gmon, "Spd", STAT_SPEED, 3 )
+
+		if gmon.lvl > gmon.evolves[1] then
+			self:ChoiceMessage( "Do you want " .. gmon.name .. " to evolve?" )
+			local choice = self:DoChoice( "Yes", "No" )
+			if choice == 1 then
+				self:ActionMessage ( gmon.name .. " has evolved into " .. gmon.evolves[2] )
+				-- TODO handle Evolution
+			else if choice == 2 then
+				self:ActionMessage ( gmon.name .. " did not evolve! " )
+			end
+		end
+	end
+end
+
 function garrymon.Create( classKey )
 	return table.Copy(GAMEMODE.garrymons[classKey])
 end
@@ -159,7 +187,7 @@ end
 function GM:PlayerCaptureGarrymon( pl, garrymon )
 	local ghand = pl:GetGHand()
 	if ghand:IsFull() then
-		-- Add to collection instead
+		gcollection:AddGarrymon( garrymon )
 	else
 		ghand:AddGarrymon( garrymon )
 	end

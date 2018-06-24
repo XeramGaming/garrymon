@@ -345,30 +345,6 @@ self:ActionMessage( name .. " (" .. oldValue .. "</c><c=0,255,0>+" .. amount ..
 "</c><c=255,0,0>) -> </c><c=255,255,0>" .. newValue .. "</c><c=255,0,0>" )
 end
 
-function GM:GainExperience( gmon, amount )
-self:ActionMessage( gmon.name .. " has gained " .. amount .. " experience" )
-gmon.exp = gmon.exp + amount
-if gmon.exp > gmon.maxexp then
-self:ActionMessage( gmon.name .. " has leveled up!" )
-gmon.maxexp = math.pow( gmon.lvl, 3 )
-self:IncreaseStat( gmon, "Lvl", "lvl", 1 )
-self:IncreaseStat( gmon, "Hp", "maxhp", 4 )
-self:IncreaseStat( gmon, "Att", STAT_ATTACK, 4 )
-self:IncreaseStat( gmon, "Def", STAT_DEFENSE, 4 )
-self:IncreaseStat( gmon, "Sp.Att", STAT_SPATTACK, 3 )
-self:IncreaseStat( gmon, "Sp.Def", STAT_SPDEFENSE, 2 )
-self:IncreaseStat( gmon, "Spd", STAT_SPEED, 3 )
-if gmon.lvl > gmon.evolves[1] then
-self:ChoiceMessage( "Do you want " .. gmon.name .. " to evolve?" )
-local choice = self:DoChoice( "Yes", "No" )
-if choice == 1 then
-self:ActionMessage( gmon.name .. " has evolved into " .. gmon.evolves[2] )
--- TODO handle evolution
-end
-end
-end
-end
-
 function GM:Fight(gmon, enemy)
 local whoseTurn = gmon
 while true do
